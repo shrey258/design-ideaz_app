@@ -14,21 +14,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Design Ideaz App',
       theme: ThemeData(
-        primaryColor: const Color(0xFF80CBC4), // Soft teal/mint green
-        scaffoldBackgroundColor: Colors.white,
+        primaryColor: const Color(0xFFF9FBFF), // Soft teal/mint green
+        scaffoldBackgroundColor: const Color(0xFFF9FBFF),
         appBarTheme: AppBarTheme(
-          backgroundColor: const Color(0xFF80CBC4),
-          elevation: 2,
-          iconTheme: const IconThemeData(color: Colors.white),
-          titleTextStyle: const TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+          backgroundColor: const Color(0xFFF9FBFF),
+          iconTheme: const IconThemeData(color: Color(0xFF3D8FEF)),
+          titleTextStyle: Theme.of(context).textTheme.displaySmall,
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: Colors.white,
-          selectedItemColor: const Color(0xFF4CAF50), // Darker shade of teal
+          selectedItemColor: const Color(0xFF3D8FEF),
           unselectedItemColor: Colors.grey,
           selectedLabelStyle:
               const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
@@ -83,7 +78,7 @@ class MyApp extends StatelessWidget {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFFF7043), // Warm coral
+            backgroundColor: const Color(0xFF3D8FEF),
             textStyle: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,

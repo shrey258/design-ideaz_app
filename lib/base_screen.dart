@@ -28,8 +28,19 @@ class _BaseScreenState extends State<BaseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Design Ideaz'),
-        // Remove hardcoded colors, use theme instead
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'Design Ideaz',
+            style: Theme.of(context).textTheme.displayMedium,
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications_active_outlined),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
