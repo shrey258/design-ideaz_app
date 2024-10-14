@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:design_ideaz_app/home_screen.dart';
+import 'package:design_ideaz_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class Homesplash extends StatefulWidget {
