@@ -1,3 +1,4 @@
+import 'package:design_ideaz_app/couses%20and%20cart/all_coureses.dart';
 import 'package:flutter/material.dart';
 import 'package:design_ideaz_app/screens/home_screen.dart';
 import 'package:design_ideaz_app/screens/course_overview_screen.dart';
@@ -26,7 +27,7 @@ class _BaseScreenState extends State<BaseScreen> {
         return HomePage();
       case 1:
         // return CoursesScreen();
-        return Placeholder(); // Replace with actual CoursesScreen when available
+        return AllCoureses(); // Replace with actual CoursesScreen when available
       case 2:
         // return ProfileScreen();
         return Placeholder(); // Replace with actual ProfileScreen when available
@@ -83,8 +84,9 @@ class _BaseScreenState extends State<BaseScreen> {
               onTap: _onItemTapped,
               selectedItemColor:
                   Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
-              unselectedItemColor:
-                  Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+              unselectedItemColor: Theme.of(context)
+                  .bottomNavigationBarTheme
+                  .unselectedItemColor,
             ),
     );
   }

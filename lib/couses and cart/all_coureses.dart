@@ -18,21 +18,26 @@ class _AllCouresesState extends State<AllCoureses> {
       body: IndexedStack(
         index: currentPage,
         children: pages,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        iconSize: 35,
-        selectedFontSize: 0,
-        unselectedFontSize: 0,
-        onTap: (value) {
-          setState(() {
-            currentPage = value;
-          });
-        },
-        currentIndex: currentPage,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: '')
-        ],
+        // ),
+        // bottomNavigationBar: BottomNavigationBar(
+        //   items: const <BottomNavigationBarItem>[
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.home),
+        //       label: 'Home',
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.book),
+        //       label: 'Courses',
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.account_circle),
+        //       label: 'Profile',
+        //     ),
+        //   ],
+        //   selectedItemColor:
+        //       Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+        //   unselectedItemColor:
+        //       Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
       ),
     );
   }

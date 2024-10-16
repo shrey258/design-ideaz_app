@@ -32,10 +32,7 @@ class ProductCart extends StatelessWidget {
         children: [
           Text(
             title,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          SizedBox(
-            height: 5,
+            style: TextStyle(fontSize: 20),
           ),
           Center(
             child: Image.asset(
@@ -43,10 +40,70 @@ class ProductCart extends StatelessWidget {
               height: 250,
             ),
           ),
-          Text(
-            "\$$price",
-            style: Theme.of(context).textTheme.bodySmall,
+
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                Icon(Icons.timer),
+                Text(
+                  time,
+                  style: TextStyle(fontSize: 15),
+                )
+              ],
+            ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(top: 2.1, left: 15.0, right: 25.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  child: Row(
+                    children: [
+                      Text(
+                        "No of Lessons: ",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Text(
+                        no_of_lesson,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.blue[100],
+                  ),
+                  padding: EdgeInsets.only(left: 2.0, right: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      Text(
+                        textAlign: TextAlign.right,
+                        rating,
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          // Text(
+          //   "\$$price",
+          //   style: TextStyle(fontSize: 20),
+          // ),
           SizedBox(
             height: 5,
           ),

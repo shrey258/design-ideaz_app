@@ -100,7 +100,7 @@ class MyApp extends StatelessWidget {
                   const Color(0xFFFFAB91), // Light peach accent color
             ),
           ),
-          home: AllCoureses(),
+          home: BaseScreen(),
         ));
   }
 }
