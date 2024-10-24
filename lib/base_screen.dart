@@ -1,7 +1,7 @@
-import 'package:design_ideaz_app/couses%20and%20cart/all_coureses.dart';
 import 'package:flutter/material.dart';
 import 'package:design_ideaz_app/screens/home_screen.dart';
 import 'package:design_ideaz_app/screens/course_overview_screen.dart';
+import 'package:design_ideaz_app/screens/all_courses_screen.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({super.key});
@@ -27,7 +27,7 @@ class _BaseScreenState extends State<BaseScreen> {
         return HomePage();
       case 1:
         // return CoursesScreen();
-        return AllCoureses(); // Replace with actual CoursesScreen when available
+        return AllCoursesScreen(); // Replace with actual CoursesScreen when available
       case 2:
         // return ProfileScreen();
         return Placeholder(); // Replace with actual ProfileScreen when available

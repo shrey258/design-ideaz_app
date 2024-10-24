@@ -1,5 +1,4 @@
 import 'package:design_ideaz_app/base_screen.dart';
-import 'package:design_ideaz_app/couses%20and%20cart/all_coureses.dart';
 import 'package:design_ideaz_app/couses%20and%20cart/cart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -198,21 +198,21 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> with Single
 
   Widget _buildOverviewTab(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(context.responsiveSize(16)),
       children: [
         _buildSectionTitle(context, 'About this course'),
-        SizedBox(height: 8),
+        SizedBox(height: context.responsiveSize(8)),
         Text(
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: context.textTheme.bodyMedium,
         ),
-        SizedBox(height: 24),
+        SizedBox(height: context.responsiveSize(24)),
         _buildSectionTitle(context, 'What you\'ll learn'),
-        SizedBox(height: 8),
+        SizedBox(height: context.responsiveSize(8)),
         _buildLearningObjectives(context),
-        SizedBox(height: 24),
+        SizedBox(height: context.responsiveSize(24)),
         _buildSectionTitle(context, 'Requirements'),
-        SizedBox(height: 8),
+        SizedBox(height: context.responsiveSize(8)),
         _buildRequirements(context),
       ],
     );
