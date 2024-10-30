@@ -1,3 +1,4 @@
+import 'package:design_ideaz_app/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:design_ideaz_app/screens/home_screen.dart';
 import 'package:design_ideaz_app/screens/course_overview_screen.dart';
@@ -30,7 +31,7 @@ class _BaseScreenState extends State<BaseScreen> {
         return AllCoursesScreen(); // Replace with actual CoursesScreen when available
       case 2:
         // return ProfileScreen();
-        return Placeholder(); // Replace with actual ProfileScreen when available
+        return Profile(); // Replace with actual ProfileScreen when available
       default:
         return HomePage();
     }

@@ -7,9 +7,9 @@ class CourseCard extends StatelessWidget {
   final Course course;
 
   const CourseCard({
-    Key? key,
+    super.key,
     required this.course,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SearchWidget extends StatelessWidget {
   final Function(String) onSearch;
 
-  const SearchWidget({Key? key, required this.onSearch}) : super(key: key);
+  const SearchWidget({super.key, required this.onSearch});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,8 @@ class SearchWidget extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.settings_input_component, color: Colors.blue),
+            icon:
+                const Icon(Icons.settings_input_component, color: Colors.blue),
             onPressed: () {
               // Add functionality for the blue button here
             },

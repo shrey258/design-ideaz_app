@@ -1,5 +1,7 @@
 import 'package:design_ideaz_app/base_screen.dart';
 import 'package:design_ideaz_app/couses%20and%20cart/cart_provider.dart';
+import 'package:design_ideaz_app/screens/home_screen.dart';
+import 'package:design_ideaz_app/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

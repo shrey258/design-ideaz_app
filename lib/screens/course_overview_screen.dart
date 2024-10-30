@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 import 'package:flutter/services.dart';
 import 'package:design_ideaz_app/main.dart';
 
@@ -32,19 +30,17 @@ class Lesson {
   Lesson({required this.title, required this.duration});
 }
 
-
-
-
 class CourseOverviewScreen extends StatefulWidget {
   final Course course;
 
-  const CourseOverviewScreen({Key? key, required this.course}) : super(key: key);
+  const CourseOverviewScreen({super.key, required this.course});
 
   @override
   _CourseOverviewScreenState createState() => _CourseOverviewScreenState();
 }
 
-class _CourseOverviewScreenState extends State<CourseOverviewScreen> with SingleTickerProviderStateMixin {
+class _CourseOverviewScreenState extends State<CourseOverviewScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final ScrollController _scrollController = ScrollController();
   bool _showTitle = false;
@@ -125,15 +121,20 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> with Single
                 children: [
                   Text(
                     widget.course.title,
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 8),
                   Row(
                     children: [
                       Icon(Icons.access_time, size: 16, color: Colors.white70),
                       SizedBox(width: 4),
-                      Text('${widget.course.duration} • ${widget.course.lessonCount} lessons',
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.white70)),
+                      Text(
+                          '${widget.course.duration} • ${widget.course.lessonCount} lessons',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(color: Colors.white70)),
                       Spacer(),
                       _buildRatingChip(context),
                     ],
@@ -146,16 +147,20 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> with Single
         title: AnimatedOpacity(
           opacity: _showTitle ? 1.0 : 0.0,
           duration: Duration(milliseconds: 300),
-          child: Text(widget.course.title, style: TextStyle(color: Theme.of(context).primaryColor)),
+          child: Text(widget.course.title,
+              style: TextStyle(color: Theme.of(context).primaryColor)),
         ),
       ),
       leading: IconButton(
-        icon: Icon(Icons.arrow_back, color: _showTitle ? Theme.of(context).primaryColor : Colors.white),
+        icon: Icon(Icons.arrow_back,
+            color: _showTitle ? Theme.of(context).primaryColor : Colors.white),
         onPressed: () => Navigator.of(context).pop(),
       ),
       actions: [
         IconButton(
-          icon: Icon(Icons.favorite_border, color: _showTitle ? Theme.of(context).primaryColor : Colors.white),
+          icon: Icon(Icons.favorite_border,
+              color:
+                  _showTitle ? Theme.of(context).primaryColor : Colors.white),
           onPressed: () {
             // TODO: Implement favorite functionality
           },
@@ -228,11 +233,15 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> with Single
           child: ListTile(
             leading: CircleAvatar(
               backgroundColor: Theme.of(context).primaryColor,
-              child: Text('${index + 1}', style: TextStyle(color: Colors.white)),
+              child:
+                  Text('${index + 1}', style: TextStyle(color: Colors.white)),
             ),
-            title: Text(lesson.title, style: Theme.of(context).textTheme.titleMedium),
-            subtitle: Text(lesson.duration, style: Theme.of(context).textTheme.bodySmall),
-            trailing: Icon(Icons.play_circle_outline, color: Theme.of(context).primaryColor),
+            title: Text(lesson.title,
+                style: Theme.of(context).textTheme.titleMedium),
+            subtitle: Text(lesson.duration,
+                style: Theme.of(context).textTheme.bodySmall),
+            trailing: Icon(Icons.play_circle_outline,
+                color: Theme.of(context).primaryColor),
             onTap: () {
               // TODO: Implement lesson navigation
             },
@@ -250,7 +259,10 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> with Single
   Widget _buildSectionTitle(BuildContext context, String title) {
     return Text(
       title,
-      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+      style: Theme.of(context)
+          .textTheme
+          .titleLarge
+          ?.copyWith(fontWeight: FontWeight.bold),
     );
   }
 
@@ -263,7 +275,9 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> with Single
     ];
 
     return Column(
-      children: objectives.map((objective) => _buildObjectiveItem(context, objective)).toList(),
+      children: objectives
+          .map((objective) => _buildObjectiveItem(context, objective))
+          .toList(),
     );
   }
 
@@ -273,10 +287,12 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> with Single
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.check_circle, color: Theme.of(context).primaryColor, size: 20),
+          Icon(Icons.check_circle,
+              color: Theme.of(context).primaryColor, size: 20),
           SizedBox(width: 8),
           Expanded(
-            child: Text(objective, style: Theme.of(context).textTheme.bodyMedium),
+            child:
+                Text(objective, style: Theme.of(context).textTheme.bodyMedium),
           ),
         ],
       ),
@@ -291,7 +307,9 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> with Single
     ];
 
     return Column(
-      children: requirements.map((req) => _buildRequirementItem(context, req)).toList(),
+      children: requirements
+          .map((req) => _buildRequirementItem(context, req))
+          .toList(),
     );
   }
 
@@ -301,10 +319,12 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> with Single
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.fiber_manual_record, color: Theme.of(context).primaryColor, size: 12),
+          Icon(Icons.fiber_manual_record,
+              color: Theme.of(context).primaryColor, size: 12),
           SizedBox(width: 8),
           Expanded(
-            child: Text(requirement, style: Theme.of(context).textTheme.bodyMedium),
+            child: Text(requirement,
+                style: Theme.of(context).textTheme.bodyMedium),
           ),
         ],
       ),
@@ -334,11 +354,12 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> with Single
                 Text(
                   '\$${widget.course.price.toStringAsFixed(2)}',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: Theme.of(context).primaryColor,
-                    fontWeight: FontWeight.bold,
-                  ),
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
-                Text('Lifetime Access', style: Theme.of(context).textTheme.bodySmall),
+                Text('Lifetime Access',
+                    style: Theme.of(context).textTheme.bodySmall),
               ],
             ),
             SizedBox(width: 16),
@@ -347,7 +368,6 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> with Single
                 onPressed: () {
                   // TODO: Implement enrollment process
                 },
-                child: Text('Enroll Now'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).primaryColor,
                   foregroundColor: Colors.white,
@@ -356,6 +376,7 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> with Single
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
+                child: Text('Enroll Now'),
               ),
             ),
           ],

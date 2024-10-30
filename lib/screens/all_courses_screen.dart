@@ -5,6 +5,8 @@ import 'package:design_ideaz_app/main.dart'; // Import for responsive extensions
 import 'package:design_ideaz_app/course_data.dart'; // Import course data
 
 class AllCoursesScreen extends StatelessWidget {
+  const AllCoursesScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
