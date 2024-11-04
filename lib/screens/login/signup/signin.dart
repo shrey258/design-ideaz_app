@@ -1,5 +1,5 @@
 import 'package:design_ideaz_app/common_style/textinput.dart';
-import 'package:design_ideaz_app/login%20and%20signup/login.dart';
+import 'package:design_ideaz_app/screens/login/signup/login.dart';
 import 'package:flutter/material.dart';
 
 class signin extends StatefulWidget {
