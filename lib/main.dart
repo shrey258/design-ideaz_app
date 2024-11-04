@@ -18,36 +18,40 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       title: 'Design Ideaz App',
       theme: ThemeData(
-        primaryColor: const Color(0xFFF9FBFF), // Soft teal/mint green
+        primaryColor: const Color(0xFF3D8FEF), // Changed to blue instead of light color
         scaffoldBackgroundColor: const Color(0xFFF9FBFF),
         appBarTheme: AppBarTheme(
           backgroundColor: const Color(0xFFF9FBFF),
           iconTheme: const IconThemeData(color: Color(0xFF3D8FEF)),
-          titleTextStyle: Theme.of(context).textTheme.displaySmall,
+          elevation: 0,
+          titleTextStyle: const TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF37474F),
+          ),
         ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Colors.white,
-          selectedItemColor: const Color(0xFF3D8FEF),
+          selectedItemColor: Color(0xFF3D8FEF),
           unselectedItemColor: Colors.grey,
-          selectedLabelStyle:
-              const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-          unselectedLabelStyle: const TextStyle(fontSize: 12),
+          selectedLabelStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+          unselectedLabelStyle: TextStyle(fontSize: 12),
         ),
         textTheme: const TextTheme(
           displayLarge: TextStyle(
             fontSize: 34,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Color(0xFF37474F),
           ),
           displayMedium: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Color(0xFF37474F),
           ),
           displaySmall: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF37474F), // Charcoal grey
+            color: Color(0xFF37474F),
           ),
           headlineMedium: TextStyle(
             fontSize: 20,
@@ -67,28 +71,37 @@ class MyApp extends ConsumerWidget {
           bodyLarge: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.normal,
-            color: Colors.black87,
+            color: Color(0xFF37474F),
           ),
           bodyMedium: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.normal,
-            color: Colors.black54,
+            color: Color(0xFF37474F),
           ),
           labelSmall: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w300,
-            color: Colors.grey,
+            color: Color(0xFF37474F),
           ),
+        ),
+        cardTheme: CardTheme(
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          color: Colors.white,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF3D8FEF),
+            foregroundColor: Colors.white,
             textStyle: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(12),
             ),
           ),
         ),

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:design_ideaz_app/screens/home_screen.dart';
 import 'package:design_ideaz_app/screens/course_overview_screen.dart';
 import 'package:design_ideaz_app/screens/all_courses_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:design_ideaz_app/screens/cart_screen.dart';
+import 'package:design_ideaz_app/providers/cart_provider.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({super.key});
@@ -57,6 +60,50 @@ class _BaseScreenState extends State<BaseScreen> {
                 ),
               ),
               actions: [
+                Consumer(
+                  builder: (context, ref, child) {
+                    final cartItems = ref.watch(cartProvider);
+                    return Stack(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.shopping_cart_outlined),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const CartScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                        if (cartItems.isNotEmpty)
+                          Positioned(
+                            right: 8,
+                            top: 8,
+                            child: Container(
+                              padding: EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              constraints: BoxConstraints(
+                                minWidth: 16,
+                                minHeight: 16,
+                              ),
+                              child: Text(
+                                '${cartItems.length}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                      ],
+                    );
+                  },
+                ),
                 IconButton(
                   icon: const Icon(Icons.notifications_active_outlined),
                   onPressed: () {},

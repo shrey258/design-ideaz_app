@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
 import 'package:design_ideaz_app/main.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:design_ideaz_app/providers/cart_provider.dart';
+import 'package:design_ideaz_app/screens/cart_screen.dart';
 
 class Course {
   final String title;
@@ -157,10 +160,58 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen>
         onPressed: () => Navigator.of(context).pop(),
       ),
       actions: [
+        Consumer(
+          builder: (context, ref, child) {
+            final cartItems = ref.watch(cartProvider);
+            return Stack(
+              children: [
+                IconButton(
+                  icon: Icon(
+                    Icons.shopping_cart_outlined,
+                    color: _showTitle ? Theme.of(context).primaryColor : Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CartScreen(),
+                      ),
+                    );
+                  },
+                ),
+                if (cartItems.isNotEmpty)
+                  Positioned(
+                    right: 8,
+                    top: 8,
+                    child: Container(
+                      padding: EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      constraints: BoxConstraints(
+                        minWidth: 16,
+                        minHeight: 16,
+                      ),
+                      child: Text(
+                        '${cartItems.length}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+              ],
+            );
+          },
+        ),
         IconButton(
-          icon: Icon(Icons.favorite_border,
-              color:
-                  _showTitle ? Theme.of(context).primaryColor : Colors.white),
+          icon: Icon(
+            Icons.favorite_border,
+            color: _showTitle ? Theme.of(context).primaryColor : Colors.white,
+          ),
           onPressed: () {
             // TODO: Implement favorite functionality
           },
@@ -332,56 +383,102 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen>
   }
 
   Widget _buildBottomBar(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 4,
-              offset: Offset(0, -2),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Consumer(
+      builder: (context, ref, child) {
+        final cartItems = ref.watch(cartProvider);
+        final isInCart = cartItems.contains(widget.course);
+        
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 10,
+                offset: const Offset(0, -5),
+              ),
+            ],
+          ),
+          child: SafeArea(
+            child: Row(
               children: [
-                Text(
-                  '\$${widget.course.price.toStringAsFixed(2)}',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.bold,
+                Container(
+                  height: 48,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '\$${widget.course.price.toStringAsFixed(2)}',
+                        style: context.textTheme.displaySmall?.copyWith(
+                          color: const Color(0xFF3D8FEF),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                          height: 1.0,
+                        ),
                       ),
-                ),
-                Text('Lifetime Access',
-                    style: Theme.of(context).textTheme.bodySmall),
-              ],
-            ),
-            SizedBox(width: 16),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () {
-                  // TODO: Implement enrollment process
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                      const SizedBox(height: 2),
+                      Text(
+                        'Lifetime Access',
+                        style: context.textTheme.labelSmall?.copyWith(
+                          color: const Color(0xFF37474F),
+                          fontSize: 11,
+                          height: 1.0,
+                          letterSpacing: 0.2,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                child: Text('Enroll Now'),
-              ),
+                const SizedBox(width: 24),
+                Expanded(
+                  child: SizedBox(
+                    height: 48,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (isInCart) {
+                          ref.read(cartProvider.notifier).removeFromCart(widget.course);
+                        } else {
+                          ref.read(cartProvider.notifier).addToCart(widget.course);
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: isInCart 
+                            ? const Color(0xFFDC2626)
+                            : const Color(0xFF1E88E5),
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            isInCart ? Icons.remove_shopping_cart : Icons.add_shopping_cart,
+                            size: 20,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            isInCart ? 'Remove from Cart' : 'Add to Cart',
+                            style: context.textTheme.titleLarge?.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
