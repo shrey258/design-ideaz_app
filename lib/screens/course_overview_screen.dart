@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/services.dart';
 import 'package:design_ideaz_app/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:design_ideaz_app/providers/cart_provider.dart';

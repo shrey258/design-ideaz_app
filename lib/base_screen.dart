@@ -36,7 +36,36 @@ class _BaseScreenState extends State<BaseScreen> {
         return AllCoursesScreen(); // Replace with actual CoursesScreen when available
       case 2:
         // return ProfileScreen();
-        return Profile(); // Replace with actual ProfileScreen when available
+        return UserProfile(
+          userName: "John Doe",
+          userEmail: "john@example.com",
+          profileImage: "https://example.com/profile.jpg",
+          lessonsLearned: 42,
+          overallProgress: 0.75,
+          coursesProgress: [
+            CourseProgress(
+              courseName: "Flutter Development",
+              progress: 0.8,
+            ),
+            // Add more courses...
+          ],
+          purchasedCourses: [
+            PurchasedCourse(
+              courseName: "Mobile App Development",
+              purchaseDate: "2024-03-15",
+            ),
+            // Add more purchased courses...
+          ],
+          achievements: [
+            Achievement(
+              name: "Fast Learner",
+              icon: Icons.speed,
+              unlocked: true,
+            ),
+            // Add more achievements...
+          ],
+        );
+      // Replace with actual ProfileScreen when available
       default:
         return HomePage();
     }

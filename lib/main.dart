@@ -1,4 +1,9 @@
+<<<<<<< Updated upstream
 import 'package:design_ideaz_app/base_screen.dart';
+=======
+import 'package:design_ideaz_app/couses%20and%20cart/cart_provider.dart';
+import 'package:design_ideaz_app/splash/splash.dart';
+>>>>>>> Stashed changes
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'providers/auth_provider.dart';
@@ -104,6 +109,7 @@ class MyApp extends ConsumerWidget {
               borderRadius: BorderRadius.circular(12),
             ),
           ),
+<<<<<<< Updated upstream
         ),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor:
@@ -112,6 +118,10 @@ class MyApp extends ConsumerWidget {
       ),
       home: authState.isLoggedIn ? const BaseScreen() : const LoginScreen(),
     );
+=======
+          home: SplashScreen(),
+        ));
+>>>>>>> Stashed changes
   }
 }
 
