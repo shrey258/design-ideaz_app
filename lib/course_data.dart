@@ -6,7 +6,7 @@ final List<Course> courses = [
     duration: '8h 30min',
     lessonCount: 32,
     rating: 4.8,
-    imageUrl: 'https://placehold.co/600x400/90EE90/ffffff/png?text=Web+Design+Course',
+    imageUrl: 'https://img.youtube.com/vi/C72WkcUZvco/maxresdefault.jpg',
     lessons: [
       Lesson(title: 'Introduction to Web Design', duration: '45min'),
       Lesson(title: 'HTML Basics', duration: '1h 30min'),
@@ -18,7 +18,7 @@ final List<Course> courses = [
     duration: '6h30m',
     lessonCount: 28,
     rating: 4.9,
-    imageUrl: 'https://placehold.co/600x400/87CEEB/ffffff/png?text=UI+Design+Course',
+    imageUrl: 'https://img.youtube.com/vi/FTFaQWZBqQ8/maxresdefault.jpg',
     lessons: [
       Lesson(title: 'Figma Interface Overview', duration: '1h'),
       Lesson(title: 'Creating Your First Design', duration: '2h'),
@@ -30,32 +30,32 @@ final List<Course> courses = [
     duration: '5h 20min',
     lessonCount: 20,
     rating: 4.7,
-    imageUrl: 'https://placehold.co/600x400/FFD700/ffffff/png?text=Photography+Course',
+    imageUrl: 'https://img.youtube.com/vi/V7z7BAZdt2M/maxresdefault.jpg',
     lessons: [
       Lesson(title: 'Camera Settings', duration: '30min'),
       Lesson(title: 'Lighting Techniques', duration: '1h'),
     ],
     price: 39.99,
   ),
-  Course(
-    title: 'Digital Marketing 101',
-    duration: '7h 45min',
-    lessonCount: 25,
-    rating: 4.6,
-    imageUrl: 'https://placehold.co/600x400/FF6347/ffffff/png?text=Marketing+Course',
-    lessons: [
-      Lesson(title: 'SEO Basics', duration: '1h'),
-      Lesson(title: 'Social Media Strategies', duration: '1h 30min'),
-    ],
-    price: 44.99,
-  ),
+  // Course(
+  //   title: 'Digital Marketing 101',
+  //   duration: '7h 45min',
+  //   lessonCount: 25,
+  //   rating: 4.6,
+  //   imageUrl: 'https://img.youtube.com/vi/SZEDZqIKIJ8/maxresdefault.jpg',
+  //   lessons: [
+  //     Lesson(title: 'SEO Basics', duration: '1h'),
+  //     Lesson(title: 'Social Media Strategies', duration: '1h 30min'),
+  //   ],
+  //   price: 44.99,
+  // ),
   // Add more courses here
   Course(
     title: 'Python Programming',
     duration: '10h',
     lessonCount: 40,
     rating: 4.9,
-    imageUrl: 'https://placehold.co/600x400/4682B4/ffffff/png?text=Python+Course',
+    imageUrl: 'https://img.youtube.com/vi/kqtD5dpn9C8/maxresdefault.jpg',
     lessons: [
       Lesson(title: 'Introduction to Python', duration: '1h'),
       Lesson(title: 'Data Structures', duration: '2h'),
@@ -67,7 +67,7 @@ final List<Course> courses = [
     duration: '8h',
     lessonCount: 30,
     rating: 4.5,
-    imageUrl: 'https://placehold.co/600x400/FF69B4/ffffff/png?text=Graphic+Design+Course',
+    imageUrl: 'https://img.youtube.com/vi/WONZVnlam6U/maxresdefault.jpg',
     lessons: [
       Lesson(title: 'Color Theory', duration: '1h'),
       Lesson(title: 'Typography', duration: '1h 30min'),
@@ -79,7 +79,7 @@ final List<Course> courses = [
     duration: '9h',
     lessonCount: 35,
     rating: 4.7,
-    imageUrl: 'https://placehold.co/600x400/32CD32/ffffff/png?text=JavaScript+Course',
+    imageUrl: 'https://img.youtube.com/vi/W6NZfCO5SIk/maxresdefault.jpg',
     lessons: [
       Lesson(title: 'JS Basics', duration: '1h'),
       Lesson(title: 'DOM Manipulation', duration: '1h 30min'),
@@ -91,7 +91,7 @@ final List<Course> courses = [
     duration: '12h',
     lessonCount: 50,
     rating: 4.8,
-    imageUrl: 'https://placehold.co/600x400/8A2BE2/ffffff/png?text=Data+Science+Course',
+    imageUrl: 'https://img.youtube.com/vi/ZXrHkIz-krE/maxresdefault.jpg',
     lessons: [
       Lesson(title: 'R Basics', duration: '1h'),
       Lesson(title: 'Data Visualization', duration: '2h'),
@@ -103,7 +103,7 @@ final List<Course> courses = [
     duration: '15h',
     lessonCount: 60,
     rating: 4.9,
-    imageUrl: 'https://placehold.co/600x400/FF4500/ffffff/png?text=Machine+Learning+Course',
+    imageUrl: 'https://img.youtube.com/vi/GwIo3gDZCVQ/maxresdefault.jpg',
     lessons: [
       Lesson(title: 'Supervised Learning', duration: '2h'),
       Lesson(title: 'Unsupervised Learning', duration: '2h 30min'),
@@ -115,7 +115,7 @@ final List<Course> courses = [
     duration: '6h',
     lessonCount: 20,
     rating: 4.6,
-    imageUrl: 'https://placehold.co/600x400/00CED1/ffffff/png?text=Blockchain+Course',
+    imageUrl: 'https://img.youtube.com/vi/gyMwXuJrbJQ/maxresdefault.jpg',
     lessons: [
       Lesson(title: 'Introduction to Blockchain', duration: '1h'),
       Lesson(title: 'Smart Contracts', duration: '1h 30min'),
@@ -127,7 +127,7 @@ final List<Course> courses = [
     duration: '8h',
     lessonCount: 30,
     rating: 4.7,
-    imageUrl: 'https://placehold.co/600x400/FF8C00/ffffff/png?text=Cybersecurity+Course',
+    imageUrl: 'https://img.youtube.com/vi/bPVaOlJ6ln0/maxresdefault.jpg',
     lessons: [
       Lesson(title: 'Network Security', duration: '1h'),
       Lesson(title: 'Cryptography', duration: '1h 30min'),
@@ -139,7 +139,7 @@ final List<Course> courses = [
     duration: '14h',
     lessonCount: 55,
     rating: 4.9,
-    imageUrl: 'https://placehold.co/600x400/FF1493/ffffff/png?text=AI+Course',
+    imageUrl: 'https://img.youtube.com/vi/JMUxmLyrhSk/maxresdefault.jpg',
     lessons: [
       Lesson(title: 'AI Basics', duration: '1h'),
       Lesson(title: 'Neural Networks', duration: '2h'),
@@ -151,7 +151,7 @@ final List<Course> courses = [
     duration: '10h',
     lessonCount: 40,
     rating: 4.8,
-    imageUrl: 'https://placehold.co/600x400/1E90FF/ffffff/png?text=Cloud+Computing+Course',
+    imageUrl: 'https://img.youtube.com/vi/2LaAJq1lB1Q/maxresdefault.jpg',
     lessons: [
       Lesson(title: 'AWS Basics', duration: '1h'),
       Lesson(title: 'Azure Fundamentals', duration: '1h 30min'),
@@ -163,7 +163,7 @@ final List<Course> courses = [
     duration: '9h',
     lessonCount: 35,
     rating: 4.7,
-    imageUrl: 'https://placehold.co/600x400/228B22/ffffff/png?text=DevOps+Course',
+    imageUrl: 'https://img.youtube.com/vi/Xrgk023l4lI/maxresdefault.jpg',
     lessons: [
       Lesson(title: 'CI/CD Pipelines', duration: '1h'),
       Lesson(title: 'Docker & Kubernetes', duration: '2h'),
@@ -175,7 +175,7 @@ final List<Course> courses = [
     duration: '11h',
     lessonCount: 45,
     rating: 4.8,
-    imageUrl: 'https://placehold.co/600x400/FF4500/ffffff/png?text=Mobile+App+Course',
+    imageUrl: 'https://img.youtube.com/vi/x0uinJvhNxI/maxresdefault.jpg',
     lessons: [
       Lesson(title: 'Flutter Basics', duration: '1h'),
       Lesson(title: 'React Native', duration: '1h 30min'),

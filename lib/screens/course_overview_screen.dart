@@ -458,12 +458,12 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            isInCart ? Icons.remove_shopping_cart : Icons.add_shopping_cart,
+                            isInCart ? Icons.cancel : Icons.school,
                             size: 20,
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            isInCart ? 'Remove from Cart' : 'Add to Cart',
+                            isInCart ? 'Unenroll' : 'Enroll',
                             style: context.textTheme.titleLarge?.copyWith(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
