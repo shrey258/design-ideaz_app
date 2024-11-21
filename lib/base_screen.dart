@@ -7,7 +7,6 @@ import 'package:design_ideaz_app/screens/all_courses_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:design_ideaz_app/screens/cart_screen.dart';
 import 'package:design_ideaz_app/providers/cart_provider.dart';
-import 'dart:ui';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({super.key});
@@ -18,7 +17,7 @@ class BaseScreen extends StatefulWidget {
 
 class _BaseScreenState extends State<BaseScreen> {
   int _selectedIndex = 0;
-  Widget _currentScreen = HomePage();
+  Widget _currentScreen = const HomePage();
 
   void _onItemTapped(int index) {
     setState(() {
@@ -30,44 +29,13 @@ class _BaseScreenState extends State<BaseScreen> {
   Widget _getScreenForIndex(int index) {
     switch (index) {
       case 0:
-        return HomePage();
+        return const HomePage();
       case 1:
-        // return CoursesScreen();
-        return AllCoursesScreen(); // Replace with actual CoursesScreen when available
+        return const AllCoursesScreen();
       case 2:
-        // return ProfileScreen();
-        return UserProfile(
-          userName: "John Doe",
-          userEmail: "john@example.com",
-          profileImage: "https://example.com/profile.jpg",
-          lessonsLearned: 42,
-          overallProgress: 0.75,
-          coursesProgress: [
-            CourseProgress(
-              courseName: "Flutter Development",
-              progress: 0.8,
-            ),
-            // Add more courses...
-          ],
-          purchasedCourses: [
-            PurchasedCourse(
-              courseName: "Mobile App Development",
-              purchaseDate: "2024-03-15",
-            ),
-            // Add more purchased courses...
-          ],
-          achievements: [
-            Achievement(
-              name: "Fast Learner",
-              icon: Icons.speed,
-              unlocked: true,
-            ),
-            // Add more achievements...
-          ],
-        );
-      // Replace with actual ProfileScreen when available
+        return const Profile();
       default:
-        return HomePage();
+        return const HomePage();
     }
   }
 
@@ -92,7 +60,6 @@ class _BaseScreenState extends State<BaseScreen> {
                 ),
                 child: Row(
                   children: [
-                    // Logo with CircleAvatar
                     CircleAvatar(
                       radius: context.responsiveSize(32),
                       backgroundColor: Colors.white,
@@ -118,10 +85,8 @@ class _BaseScreenState extends State<BaseScreen> {
                       ),
                     ),
                     const Spacer(),
-                    // Action Buttons
                     Row(
                       children: [
-                        // Cart Button
                         Consumer(
                           builder: (context, ref, child) {
                             final cartItems = ref.watch(cartProvider);
@@ -140,7 +105,6 @@ class _BaseScreenState extends State<BaseScreen> {
                           },
                         ),
                         SizedBox(width: context.responsiveSize(8)),
-                        // Notifications Button
                         _buildActionButton(
                           icon: Icons.notifications_none_rounded,
                           onTap: () {},
@@ -195,11 +159,8 @@ class _BaseScreenState extends State<BaseScreen> {
                     ],
                     currentIndex: _selectedIndex,
                     onTap: _onItemTapped,
-                    selectedItemColor:
-                        Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
-                    unselectedItemColor: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .unselectedItemColor,
+                    selectedItemColor: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+                    unselectedItemColor: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
                   ),
                 ),
               ),

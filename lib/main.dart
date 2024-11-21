@@ -1,15 +1,12 @@
-<<<<<<< Updated upstream
-import 'package:design_ideaz_app/base_screen.dart';
-=======
-import 'package:design_ideaz_app/couses%20and%20cart/cart_provider.dart';
-import 'package:design_ideaz_app/splash/splash.dart';
->>>>>>> Stashed changes
+import 'package:design_ideaz_app/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'providers/auth_provider.dart';
 import 'screens/login_screen.dart';
+import 'base_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -23,7 +20,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       title: 'Design Ideaz App',
       theme: ThemeData(
-        primaryColor: const Color(0xFF3D8FEF), // Changed to blue instead of light color
+        primaryColor: const Color(0xFF3D8FEF),
         scaffoldBackgroundColor: const Color(0xFFF9FBFF),
         appBarTheme: AppBarTheme(
           backgroundColor: const Color(0xFFF9FBFF),
@@ -39,7 +36,8 @@ class MyApp extends ConsumerWidget {
           backgroundColor: Colors.white,
           selectedItemColor: Color(0xFF3D8FEF),
           unselectedItemColor: Colors.grey,
-          selectedLabelStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+          selectedLabelStyle:
+              TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
           unselectedLabelStyle: TextStyle(fontSize: 12),
         ),
         textTheme: const TextTheme(
@@ -109,19 +107,19 @@ class MyApp extends ConsumerWidget {
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-<<<<<<< Updated upstream
         ),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor:
-              const Color(0xFFFFAB91), // Light peach accent color
+          backgroundColor: const Color(0xFFFFAB91), // Light peach accent color
         ),
       ),
-      home: authState.isLoggedIn ? const BaseScreen() : const LoginScreen(),
+      home: const SplashScreen(),
+      routes: {
+        '/': (context) => authState.isLoggedIn 
+            ? const BaseScreen() 
+            : const LoginScreen(),
+        '/login': (context) => const LoginScreen(),
+      },
     );
-=======
-          home: SplashScreen(),
-        ));
->>>>>>> Stashed changes
   }
 }
 

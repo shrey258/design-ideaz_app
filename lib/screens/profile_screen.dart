@@ -379,16 +379,28 @@ class Profile extends ConsumerWidget {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel'),
+              child: Text(
+                'Cancel',
+                style: TextStyle(color: Theme.of(context).primaryColor),
+              ),
             ),
             TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                ref.read(authProvider.notifier).logout();
+              onPressed: () async {
+                Navigator.pop(context); // Close dialog
+                await ref.read(authProvider.notifier).logout();
+                
+                // Ensure we're mounted before using context
+                if (context.mounted) {
+                  // Navigate to login screen and clear navigation stack
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/login', // Make sure you have this route defined
+                    (route) => false,
+                  );
+                }
               },
-              child: const Text(
+              child: Text(
                 'Logout',
-                style: TextStyle(color: Colors.red),
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
               ),
             ),
           ],
