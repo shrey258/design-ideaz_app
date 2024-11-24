@@ -23,23 +23,24 @@ class AuthState {
     return AuthState(
       isLoggedIn: isLoggedIn ?? this.isLoggedIn,
       isLoading: isLoading ?? this.isLoading,
-      error: error,
+      error: error ?? this.error,
       username: username ?? this.username,
     );
   }
 }
 
 class AuthNotifier extends StateNotifier<AuthState> {
-  AuthNotifier() : super(AuthState()) {
-    checkLoginStatus();
+  AuthNotifier() : super(AuthState(isLoading: false)) {
+    _initializeAuth();
   }
 
-  Future<void> checkLoginStatus() async {
+  /// Initializes the authentication state
+  Future<void> _initializeAuth() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
       final username = prefs.getString('username');
-      
+
       state = state.copyWith(
         isLoggedIn: isLoggedIn,
         username: username,
@@ -48,15 +49,16 @@ class AuthNotifier extends StateNotifier<AuthState> {
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
-        error: 'Failed to check login status',
+        error: 'Failed to initialize authentication: ${e.toString()}',
       );
     }
   }
 
+  /// Handles user login with basic validation and SharedPreferences storage
   Future<bool> login(String username, String password) async {
     try {
       state = state.copyWith(isLoading: true, error: null);
-      
+
       // Basic validation
       if (username.isEmpty || password.isEmpty) {
         state = state.copyWith(
@@ -66,13 +68,13 @@ class AuthNotifier extends StateNotifier<AuthState> {
         return false;
       }
 
-      // Simulate network call
+      // Simulate network call (Replace with actual API call)
       await Future.delayed(const Duration(seconds: 2));
-      
+
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLoggedIn', true);
       await prefs.setString('username', username);
-      
+
       state = state.copyWith(
         isLoggedIn: true,
         isLoading: false,
@@ -89,14 +91,15 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
+  /// Logs out the user and clears SharedPreferences
   Future<void> logout() async {
     try {
       state = state.copyWith(isLoading: true, error: null);
-      
+
       final prefs = await SharedPreferences.getInstance();
       await prefs.clear();
-      
-      state = AuthState();
+
+      state = AuthState(isLoading: false); // Reset state after logout
     } catch (e) {
       state = state.copyWith(
         isLoading: false,

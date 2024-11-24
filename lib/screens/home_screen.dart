@@ -20,17 +20,22 @@ class HomePage extends StatelessWidget {
                 // Add search functionality here
               },
             ),
-            SizedBox(height: context.responsiveSize(16)),
+            SizedBox(height: context.responsiveSize(24)),
             Row(
               children: [
                 Text(
                   'Discover Top Picks',
-                  style: context.textTheme.headlineSmall,
+                  style: context.textTheme.headlineSmall?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Text(
                   '+100 lessons',
-                  style: context.textTheme.bodyMedium?.copyWith(color: Color(0xFF3D8FEF)),
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).primaryColor,
+                  ),
                 ),
               ],
             ),
@@ -48,10 +53,13 @@ class HomePage extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(height: context.responsiveSize(16)),
+            SizedBox(height: context.responsiveSize(24)),
             Text(
               'Popular Courses',
-              style: context.textTheme.headlineSmall,
+              style: context.textTheme.headlineSmall?.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             SizedBox(height: context.responsiveSize(16)),
             SizedBox(

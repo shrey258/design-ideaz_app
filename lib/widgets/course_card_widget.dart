@@ -13,95 +13,125 @@ class CourseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CourseOverviewScreen(course: course),
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.45,
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
           ),
-        );
-      },
-      child: SizedBox(
-        width: context.responsiveSize(200), // Set a specific width
-        height: context.responsiveSize(260), // Set a specific height
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(context.responsiveSize(15)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.1),
-                spreadRadius: 1,
-                blurRadius: 5,
-                offset: const Offset(0, 3),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CourseOverviewScreen(course: course),
               ),
-            ],
-          ),
+            );
+          },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(context.responsiveSize(15)),
-                    ),
-                    child: Image.network(
-                      course.imageUrl,
-                      height: context.responsiveSize(120),
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+              // Course Image
+              AspectRatio(
+                aspectRatio: 16 / 9,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                  child: Image.network(
+                    course.imageUrl,
+                    fit: BoxFit.cover,
                   ),
-                  Positioned(
-                    top: context.responsiveSize(10),
-                    right: context.responsiveSize(10),
-                    child: Icon(
-                      Icons.favorite_border,
-                      color: Colors.white,
-                      size: context.responsiveSize(24),
-                    ),
-                  ),
-                ],
+                ),
               ),
               Padding(
                 padding: EdgeInsets.all(context.responsiveSize(12)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      course.title,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    SizedBox(height: context.responsiveSize(4)),
-                    Text(
-                      '${course.lessonCount} lessons',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                    // Course Title
+                    SizedBox(
+                      height: context.responsiveSize(44),
+                      child: Text(
+                        course.title,
+                        style: context.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: context.responsiveSize(16),
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     SizedBox(height: context.responsiveSize(8)),
+                    // Course Stats
                     Row(
                       children: [
                         Icon(
                           Icons.access_time,
-                          size: context.responsiveSize(16),
-                          color: Colors.blue[300],
+                          size: context.responsiveSize(14),
+                          color: Colors.grey,
                         ),
                         SizedBox(width: context.responsiveSize(4)),
-                        Text(
-                          course.duration,
-                          style: Theme.of(context).textTheme.bodyMedium,
+                        Expanded(
+                          child: Text(
+                            course.duration,
+                            style: context.textTheme.bodySmall?.copyWith(
+                              color: Colors.grey,
+                              fontSize: context.responsiveSize(12),
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                        Spacer(),
-                        Icon(
-                          Icons.star,
-                          size: context.responsiveSize(16),
-                          color: Colors.amber,
-                        ),
-                        SizedBox(width: context.responsiveSize(4)),
                         Text(
-                          course.rating.toString(),
-                          style: Theme.of(context).textTheme.titleLarge,
+                          '${course.lessonCount} less',
+                          style: context.textTheme.bodySmall?.copyWith(
+                            color: Colors.grey,
+                            fontSize: context.responsiveSize(12),
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: context.responsiveSize(8)),
+                    // Rating and Price
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              size: context.responsiveSize(16),
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            SizedBox(width: context.responsiveSize(4)),
+                            Text(
+                              course.rating.toString(),
+                              style: context.textTheme.bodyMedium?.copyWith(
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: context.responsiveSize(14),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          '\$${course.price.toStringAsFixed(2)}',
+                          style: context.textTheme.titleMedium?.copyWith(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: context.responsiveSize(16),
+                          ),
                         ),
                       ],
                     ),

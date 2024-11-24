@@ -63,22 +63,20 @@ class CartScreen extends ConsumerWidget {
                                   fit: BoxFit.cover,
                                 ),
                               ),
-                              const SizedBox(width: 16),
+                              const SizedBox(width: 12),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       course.title,
-                                      style: context.textTheme.titleLarge?.copyWith(
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                      style: context.textTheme.titleMedium,
                                     ),
                                     const SizedBox(height: 4),
                                     Text(
                                       '\$${course.price.toStringAsFixed(2)}',
                                       style: context.textTheme.titleLarge?.copyWith(
-                                        color: const Color(0xFF3D8FEF),
+                                        color: Theme.of(context).primaryColor,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -86,12 +84,13 @@ class CartScreen extends ConsumerWidget {
                                 ),
                               ),
                               IconButton(
-                                icon: const Icon(
-                                  Icons.remove_circle_outline,
-                                  color: Color(0xFFDC2626),
-                                  size: 28,
+                                icon: Icon(
+                                  Icons.delete_outline,
+                                  color: Theme.of(context).primaryColor,
                                 ),
-                                onPressed: () => cartNotifier.removeFromCart(course),
+                                onPressed: () {
+                                  ref.read(cartProvider.notifier).removeFromCart(course);
+                                },
                               ),
                             ],
                           ),

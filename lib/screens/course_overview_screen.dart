@@ -76,7 +76,169 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen>
       body: NestedScrollView(
         controller: _scrollController,
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          _buildSliverAppBar(context),
+          SliverAppBar(
+            expandedHeight: MediaQuery.of(context).size.height * 0.4,
+            pinned: true,
+            elevation: 0,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.network(
+                    widget.course.imageUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Theme.of(context).primaryColor.withOpacity(0.1),
+                        child: Icon(
+                          Icons.image_not_supported,
+                          size: context.responsiveSize(50),
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      );
+                    },
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          Colors.black.withOpacity(0.7)
+                        ],
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: context.responsiveSize(48),
+                    left: context.responsiveSize(16),
+                    right: context.responsiveSize(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.course.title,
+                          style: context.textTheme.headlineSmall?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: context.responsiveSize(8)),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.access_time,
+                              size: context.responsiveSize(16),
+                              color: Colors.white70,
+                            ),
+                            SizedBox(width: context.responsiveSize(4)),
+                            Expanded(
+                              child: Text(
+                                '${widget.course.duration} • ${widget.course.lessonCount} lessons',
+                                style: context.textTheme.bodySmall?.copyWith(
+                                  color: Colors.white70,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            _buildRatingChip(context),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              title: AnimatedOpacity(
+                opacity: _showTitle ? 1.0 : 0.0,
+                duration: const Duration(milliseconds: 300),
+                child: Text(
+                  widget.course.title,
+                  style: context.textTheme.titleMedium?.copyWith(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: _showTitle
+                    ? Theme.of(context).primaryColor
+                    : Colors.white,
+              ),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            actions: [
+              Consumer(
+                builder: (context, ref, child) {
+                  final cartItems = ref.watch(cartProvider);
+                  return Stack(
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          Icons.shopping_cart_outlined,
+                          color: _showTitle
+                              ? Theme.of(context).primaryColor
+                              : Colors.white,
+                        ),
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CartScreen(),
+                          ),
+                        ),
+                      ),
+                      if (cartItems.isNotEmpty)
+                        Positioned(
+                          right: context.responsiveSize(8),
+                          top: context.responsiveSize(8),
+                          child: Container(
+                            padding: EdgeInsets.all(context.responsiveSize(2)),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(
+                                context.responsiveSize(10),
+                              ),
+                            ),
+                            constraints: BoxConstraints(
+                              minWidth: context.responsiveSize(16),
+                              minHeight: context.responsiveSize(16),
+                            ),
+                            child: Text(
+                              '${cartItems.length}',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: context.responsiveSize(10),
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                    ],
+                  );
+                },
+              ),
+            ],
+            bottom: TabBar(
+              controller: _tabController,
+              indicatorColor: Theme.of(context).primaryColor,
+              labelColor: Theme.of(context).primaryColor,
+              unselectedLabelColor: Colors.grey,
+              tabs: const [
+                Tab(text: 'Overview'),
+                Tab(text: 'Lessons'),
+                Tab(text: 'Reviews'),
+              ],
+            ),
+          ),
         ],
         body: TabBarView(
           controller: _tabController,
@@ -88,145 +250,6 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen>
         ),
       ),
       bottomNavigationBar: _buildBottomBar(context),
-    );
-  }
-
-  Widget _buildSliverAppBar(BuildContext context) {
-    return SliverAppBar(
-      expandedHeight: 300,
-      pinned: true,
-      elevation: 0,
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      flexibleSpace: FlexibleSpaceBar(
-        background: Stack(
-          fit: StackFit.expand,
-          children: [
-            Hero(
-              tag: 'courseImage${widget.course.title}',
-              child: Image.network(widget.course.imageUrl, fit: BoxFit.cover),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Colors.transparent, Colors.black.withOpacity(0.7)],
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 48,
-              left: 16,
-              right: 16,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.course.title,
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Icon(Icons.access_time, size: 16, color: Colors.white70),
-                      SizedBox(width: 4),
-                      Text(
-                          '${widget.course.duration} • ${widget.course.lessonCount} lessons',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
-                              ?.copyWith(color: Colors.white70)),
-                      Spacer(),
-                      _buildRatingChip(context),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        title: AnimatedOpacity(
-          opacity: _showTitle ? 1.0 : 0.0,
-          duration: Duration(milliseconds: 300),
-          child: Text(widget.course.title,
-              style: TextStyle(color: Theme.of(context).primaryColor)),
-        ),
-      ),
-      leading: IconButton(
-        icon: Icon(Icons.arrow_back,
-            color: _showTitle ? Theme.of(context).primaryColor : Colors.white),
-        onPressed: () => Navigator.of(context).pop(),
-      ),
-      actions: [
-        Consumer(
-          builder: (context, ref, child) {
-            final cartItems = ref.watch(cartProvider);
-            return Stack(
-              children: [
-                IconButton(
-                  icon: Icon(
-                    Icons.shopping_cart_outlined,
-                    color: _showTitle ? Theme.of(context).primaryColor : Colors.white,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const CartScreen(),
-                      ),
-                    );
-                  },
-                ),
-                if (cartItems.isNotEmpty)
-                  Positioned(
-                    right: 8,
-                    top: 8,
-                    child: Container(
-                      padding: EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      constraints: BoxConstraints(
-                        minWidth: 16,
-                        minHeight: 16,
-                      ),
-                      child: Text(
-                        '${cartItems.length}',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-              ],
-            );
-          },
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.favorite_border,
-            color: _showTitle ? Theme.of(context).primaryColor : Colors.white,
-          ),
-          onPressed: () {
-            // TODO: Implement favorite functionality
-          },
-        ),
-      ],
-      bottom: TabBar(
-        controller: _tabController,
-        indicatorColor: Theme.of(context).primaryColor,
-        labelColor: Theme.of(context).primaryColor,
-        unselectedLabelColor: Colors.grey,
-        tabs: [
-          Tab(text: 'Overview'),
-          Tab(text: 'Lessons'),
-          Tab(text: 'Reviews'),
-        ],
-      ),
     );
   }
 
@@ -388,12 +411,15 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen>
         final isInCart = cartItems.contains(widget.course);
         
         return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          padding: EdgeInsets.symmetric(
+            horizontal: context.responsiveSize(20),
+            vertical: context.responsiveSize(16),
+          ),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).scaffoldBackgroundColor,
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withOpacity(0.1),
                 blurRadius: 10,
                 offset: const Offset(0, -5),
               ),
@@ -402,38 +428,29 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen>
           child: SafeArea(
             child: Row(
               children: [
-                Container(
-                  height: 48,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '\$${widget.course.price.toStringAsFixed(2)}',
-                        style: context.textTheme.displaySmall?.copyWith(
-                          color: const Color(0xFF3D8FEF),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          height: 1.0,
-                        ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '\$${widget.course.price.toStringAsFixed(2)}',
+                      style: context.textTheme.headlineMedium?.copyWith(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
                       ),
-                      const SizedBox(height: 2),
-                      Text(
-                        'Lifetime Access',
-                        style: context.textTheme.labelSmall?.copyWith(
-                          color: const Color(0xFF37474F),
-                          fontSize: 11,
-                          height: 1.0,
-                          letterSpacing: 0.2,
-                        ),
+                    ),
+                    Text(
+                      'Lifetime Access',
+                      style: context.textTheme.bodySmall?.copyWith(
+                        color: Colors.grey,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 24),
+                SizedBox(width: context.responsiveSize(20)),
                 Expanded(
-                  child: SizedBox(
-                    height: 48,
+                  child: Container(
+                    height: context.responsiveSize(56),
                     child: ElevatedButton(
                       onPressed: () {
                         if (isInCart) {
@@ -443,32 +460,25 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen>
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: isInCart 
-                            ? const Color(0xFFDC2626)
-                            : const Color(0xFF1E88E5),
-                        foregroundColor: Colors.white,
-                        elevation: 0,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        backgroundColor: Theme.of(context).primaryColor,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: context.responsiveSize(24),
+                          vertical: context.responsiveSize(16),
                         ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            isInCart ? Icons.cancel : Icons.school,
-                            size: 20,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          isInCart ? 'Remove from Cart' : 'Add to Cart',
+                          style: context.textTheme.titleMedium?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: context.responsiveSize(18),
                           ),
-                          const SizedBox(width: 8),
-                          Text(
-                            isInCart ? 'Unenroll' : 'Enroll',
-                            style: context.textTheme.titleLarge?.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),

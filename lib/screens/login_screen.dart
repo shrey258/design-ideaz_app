@@ -22,13 +22,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     
     return Scaffold(
       body: Container(
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
             colors: [
-              const Color(0xFF3D8FEF).withOpacity(0.8),
-              const Color(0xFFF9FBFF),
+              Theme.of(context).primaryColor,
+              Theme.of(context).primaryColor.withOpacity(0.8),
+              Theme.of(context).primaryColor.withOpacity(0.6),
             ],
           ),
         ),
@@ -36,131 +39,128 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           child: SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                minHeight: context.screenHeight - MediaQuery.of(context).padding.top,
+                minHeight: MediaQuery.of(context).size.height - 
+                          MediaQuery.of(context).padding.top - 
+                          MediaQuery.of(context).padding.bottom,
               ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: context.responsiveSize(24),
-                  vertical: context.responsiveSize(16),
-                ),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: context.responsiveSize(60)),
-                      // Logo
-                      Center(
-                        child: Container(
-                          width: context.responsiveSize(120),
-                          height: context.responsiveSize(120),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
+              child: IntrinsicHeight(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.responsiveSize(24),
+                    vertical: context.responsiveSize(16),
+                  ),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Welcome Text with theme styling
+                        Text(
+                          'Welcome Back',
+                          style: context.textTheme.displayMedium?.copyWith(
                             color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: context.responsiveSize(12)),
+                        Text(
+                          'Sign in to continue',
+                          style: context.textTheme.bodyLarge?.copyWith(
+                            color: Colors.white.withOpacity(0.9),
+                          ),
+                        ),
+                        SizedBox(height: context.responsiveSize(40)),
+                        // Login Form Container
+                        Container(
+                          padding: EdgeInsets.all(context.responsiveSize(24)),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).cardColor,
+                            borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.1),
-                                blurRadius: 10,
-                                offset: const Offset(0, 5),
+                                blurRadius: 20,
+                                offset: const Offset(0, 10),
                               ),
                             ],
                           ),
-                          child: ClipOval(
-                            child: Image.asset(
-                              'asset/images/desiznideaz_logo.png',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: context.responsiveSize(40)),
-                      // Login Text
-                      Text(
-                        'Login',
-                        style: context.textTheme.displayMedium?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: context.responsiveSize(28),
-                        ),
-                      ),
-                      SizedBox(height: context.responsiveSize(40)),
-                      // Login Form Container
-                      Container(
-                        padding: EdgeInsets.all(context.responsiveSize(24)),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.9),
-                          borderRadius: BorderRadius.circular(context.responsiveSize(16)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 10,
-                              offset: const Offset(0, 5),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Username Field
-                            TextFormField(
-                              controller: _usernameController,
-                              validator: _validateUsername,
-                              style: TextStyle(fontSize: context.responsiveSize(14)),
-                              decoration: InputDecoration(
-                                labelText: 'Username',
-                                labelStyle: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontSize: context.responsiveSize(14),
-                                ),
-                                border: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey[300]!),
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey[300]!),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: context.responsiveSize(24)),
-                            // Password Field
-                            TextFormField(
-                              controller: _passwordController,
-                              validator: _validatePassword,
-                              obscureText: true,
-                              style: TextStyle(fontSize: context.responsiveSize(14)),
-                              decoration: InputDecoration(
-                                labelText: 'Password',
-                                labelStyle: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontSize: context.responsiveSize(14),
-                                ),
-                                border: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey[300]!),
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey[300]!),
-                                ),
-                                suffixIcon: TextButton(
-                                  onPressed: () {
-                                    // TODO: Implement forgot password
-                                  },
-                                  child: Text(
-                                    'Forgot Password?',
-                                    style: TextStyle(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Username Field
+                              TextFormField(
+                                controller: _usernameController,
+                                validator: _validateUsername,
+                                style: context.textTheme.bodyLarge,
+                                decoration: InputDecoration(
+                                  labelText: 'Username',
+                                  prefixIcon: Icon(
+                                    Icons.person_outline,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(color: Colors.grey.shade300),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(
                                       color: Theme.of(context).primaryColor,
-                                      fontSize: context.responsiveSize(12),
+                                      width: 2,
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            SizedBox(height: context.responsiveSize(24)),
-                            // Remember Me and Login Button
-                            Row(
-                              children: [
-                                SizedBox(
-                                  height: context.responsiveSize(24),
-                                  width: context.responsiveSize(24),
-                                  child: Checkbox(
+                              SizedBox(height: context.responsiveSize(24)),
+                              // Password Field
+                              TextFormField(
+                                controller: _passwordController,
+                                validator: _validatePassword,
+                                obscureText: true,
+                                style: context.textTheme.bodyLarge,
+                                decoration: InputDecoration(
+                                  labelText: 'Password',
+                                  prefixIcon: Icon(
+                                    Icons.lock_outline,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(color: Colors.grey.shade300),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(
+                                      color: Theme.of(context).primaryColor,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  suffixIcon: TextButton(
+                                    onPressed: () {
+                                      // TODO: Implement forgot password
+                                    },
+                                    child: Text(
+                                      'Forgot?',
+                                      style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: context.responsiveSize(24)),
+                              // Remember Me checkbox
+                              Row(
+                                children: [
+                                  Checkbox(
                                     value: _rememberMe,
                                     onChanged: (value) {
                                       setState(() {
@@ -171,28 +171,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                       borderRadius: BorderRadius.circular(4),
                                     ),
                                   ),
-                                ),
-                                SizedBox(width: context.responsiveSize(8)),
-                                Text(
-                                  'Remember Me',
-                                  style: TextStyle(
-                                    fontSize: context.responsiveSize(12),
+                                  Text(
+                                    'Remember Me',
+                                    style: context.textTheme.bodyMedium,
                                   ),
-                                ),
-                                const Spacer(),
-                                ElevatedButton(
+                                ],
+                              ),
+                              SizedBox(height: context.responsiveSize(32)),
+                              // Sign In Button
+                              SizedBox(
+                                width: double.infinity,
+                                height: context.responsiveSize(54),
+                                child: ElevatedButton(
                                   onPressed: authState.isLoading ? null : _handleLogin,
-                                  style: ElevatedButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: context.responsiveSize(24),
-                                      vertical: context.responsiveSize(12),
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                        context.responsiveSize(20),
-                                      ),
-                                    ),
-                                  ),
                                   child: authState.isLoading
                                       ? SizedBox(
                                           width: context.responsiveSize(20),
@@ -204,53 +195,52 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                         )
                                       : Text(
                                           'Sign In',
-                                          style: TextStyle(
-                                            fontSize: context.responsiveSize(14),
+                                          style: context.textTheme.titleLarge?.copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Spacer(),
-                      // Social Login Buttons
-                      Center(
-                        child: Column(
-                          children: [
-                            Text(
-                              'Or sign in with',
-                              style: TextStyle(
-                                color: Colors.grey[600],
-                                fontSize: context.responsiveSize(12),
                               ),
-                            ),
-                            SizedBox(height: context.responsiveSize(16)),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                _socialButton(
-                                  icon: Icons.g_mobiledata_rounded,
-                                  onTap: () {
-                                    // TODO: Implement Google sign in
-                                  },
-                                ),
-                                SizedBox(width: context.responsiveSize(16)),
-                                _socialButton(
-                                  icon: Icons.apple_rounded,
-                                  onTap: () {
-                                    // TODO: Implement Apple sign in
-                                  },
-                                  isDark: true,
-                                ),
-                              ],
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(height: context.responsiveSize(32)),
-                    ],
+                        SizedBox(height: context.responsiveSize(40)),
+                        // Social Login
+                        Center(
+                          child: Column(
+                            children: [
+                              Text(
+                                'Or sign in with',
+                                style: context.textTheme.bodyLarge?.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(height: context.responsiveSize(20)),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  _socialButton(
+                                    icon: Icons.g_mobiledata_rounded,
+                                    onTap: () {
+                                      // TODO: Implement Google sign in
+                                    },
+                                  ),
+                                  SizedBox(width: context.responsiveSize(20)),
+                                  _socialButton(
+                                    icon: Icons.apple_rounded,
+                                    onTap: () {
+                                      // TODO: Implement Apple sign in
+                                    },
+                                    isDark: true,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -268,23 +258,23 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(context.responsiveSize(12)),
+      borderRadius: BorderRadius.circular(context.responsiveSize(16)),
       child: Container(
-        padding: EdgeInsets.all(context.responsiveSize(12)),
+        padding: EdgeInsets.all(context.responsiveSize(16)),
         decoration: BoxDecoration(
           color: isDark ? Colors.black : Colors.white,
-          borderRadius: BorderRadius.circular(context.responsiveSize(12)),
+          borderRadius: BorderRadius.circular(context.responsiveSize(16)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
             ),
           ],
         ),
         child: Icon(
           icon,
-          size: context.responsiveSize(24),
+          size: context.responsiveSize(28),
           color: isDark ? Colors.white : Colors.black87,
         ),
       ),
